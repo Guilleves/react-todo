@@ -1,0 +1,23 @@
+{
+  "name": "react-todo",
+  "version": "1.0.0",
+  "description": "web app created as an end-of-class project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guilleves/react-todo.git"
+  },
+  "author": "guillermina vescovo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guilleves/react-todo/issues"
+  },
+  "homepage": "https://github.com/Guilleves/react-todo#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

@@ -1,5 +1,5 @@
 let MongoClient = require('mongodb').MongoClient;
-
+let assert = require('assert');
 let database = require ('../database.js');
 let getCollection = database.getCollection('tasks');
 
@@ -25,4 +25,23 @@ class Task {
     })
   }
 };
+
+Task.find(id, callback) {
+  getCollection.then((collection) => {
+  collection.find('_id': id).toArray(function(err, docs) {
+    debugger
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(docs);
+    callback(docs);
+    });
+  })
+};
+
+
+
+
+
+
+
 module.exports = Task;

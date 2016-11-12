@@ -5,8 +5,11 @@ let Task = require('./tasks/task.js');
 let db = require('./database.js');
 
 var t = new Task(1, "prueba", "active");
-t.save(function(){
-    console.log("guardado");
+// t.save(function(){
+//     console.log("guardado");
+// });
+Task.find("58278a640084430bec27a1df", () => {
+    console.log("found");
 });
 
 let server = http.Server(app);

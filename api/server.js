@@ -2,6 +2,10 @@ let express = require('express');
 let app = express();
 let http = require('http');
 let Task = require('./tasks/task.js');
+let db = require('./database.js');
+
+var t = new Task(1, "prueba", "active");
+t.save();
 debugger
 let server = http.Server(app);
 let port = process.env.PORT || 8000;

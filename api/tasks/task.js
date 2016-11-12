@@ -1,4 +1,7 @@
-let db = require ('../database.js');
+let MongoClient = require('mongodb').MongoClient;
+
+let database = require ('../database.js');
+let getCollection = database.getCollection('tasks');
 
 class Task {
   constructor(user_id, description, state) {
@@ -9,13 +12,15 @@ class Task {
     this.state = state;
   }
   save(db, callback){
-    let tasks = db.collection('tasks');
+    debugger
+    let tasks = getCollection;
     let t = {
         "user_id":  this.user_id,
         "description": this.description,
         "state": this.state
     };
-    tasks.insertOne(t);
+    debugger
+    tasks.insert(t);
   }
 
 };

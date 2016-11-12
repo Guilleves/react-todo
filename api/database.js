@@ -5,17 +5,19 @@ let assert = require('assert');
 let url = 'mongodb://localhost:27017/react-todo';
 
 // Use connect method to connect to the server
-let connect  = MongoClient.connect('mongodb://localhost:27017/react-todo', function(err, db) {
-  assert.equal(null, err);+
-  console.log("Connected successfully to server");
-  db.close();
-});
+var connect = new Promise(
+    function (resolve, reject) {
+        MongoClient.connect(url, function(err, database) {
+            console.log("Connecting to mongodb ") + url
+            if(err) reject(err);
+            resolve(database);
+        })
+    }
+);
 
 let getCollection = (coll) => {
     return new Promise((resolve,reject) => {
-        debugger
         connect.then((db) => {
-            debugger
             resolve(db.collection(coll))
         })
     })

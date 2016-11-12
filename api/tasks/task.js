@@ -11,17 +11,18 @@ class Task {
     // this.updated_at = timestamp['updated_at'];
     this.state = state;
   }
-  save(db, callback){
-    debugger
-    let tasks = getCollection;
-    let t = {
+  save(callback) {
+    getCollection.then((collection) => {
+      let t = {
         "user_id":  this.user_id,
         "description": this.description,
         "state": this.state
-    };
-    debugger
-    tasks.insert(t);
+      };
+      debugger
+      collection.insert(t, function(){
+        callback(null, t)
+      })
+    })
   }
-
 };
 module.exports = Task;

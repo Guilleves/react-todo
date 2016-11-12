@@ -5,8 +5,10 @@ let Task = require('./tasks/task.js');
 let db = require('./database.js');
 
 var t = new Task(1, "prueba", "active");
-t.save();
-debugger
+t.save(function(){
+    console.log("guardado");
+});
+
 let server = http.Server(app);
 let port = process.env.PORT || 8000;
 

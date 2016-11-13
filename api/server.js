@@ -25,13 +25,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     console.log("guardado");
 // });
 //
-// Task.findOne(ObjectId("58278a640084430bec27a1df"), () => {
-//     console.log("found");
-// });
-
-Task.findAll(function() {
-  console.log("buscando...");
+var t = Task.findOne(ObjectId("58278a640084430bec27a1df"), () => {
+    console.log("found");
+    t.destroy((docs) => {
+      console.log("deleted");
+    })
 });
+
+// var t = Task.findOne(ObjectId("58278a640084430bec27a1df"), function(docs) {
+//     console.log("holi" +docs);
+// });
 
 let server = http.Server(app);
 let port = process.env.PORT || 8000;
@@ -40,8 +43,17 @@ app.get("/", function(req, res){
     res.send("holis");
 });
 
-app.get("/tasks", function(req, res){
-    res.send("todas las tasks");
-});
+app.get("/tasks", (function(req, res){
+    Task.findAll((docs) => {
+      res.send(docs);
+    })
+}));
+
+app.get("/tasks/:id", (function(req, res){
+  let id = ObjectId(req.params.id);
+  Task.findOne(id, (docs) => {
+    res.send(docs);
+  })
+}));
 
 app.listen(port);

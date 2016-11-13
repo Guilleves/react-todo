@@ -1,10 +1,12 @@
 let MongoClient = require('mongodb').MongoClient;
+let ObjectId = require('mongodb').ObjectId;
 let assert = require('assert');
 let database = require ('../database.js');
 let getCollection = database.getCollection('tasks');
 
 class Task {
-  constructor(user_id, description, state) {
+  constructor(task_id, user_id, description, state) {
+    this.task_id = task_id;
     this.user_id = user_id;
     this.description = description;
     // this.created_at = timestamp['created_at'];
@@ -14,6 +16,7 @@ class Task {
   save(callback) {
     getCollection.then((collection) => {
       let t = {
+        "task_id": this.task_id,
         "user_id":  this.user_id,
         "description": this.description,
         "state": this.state
@@ -24,18 +27,30 @@ class Task {
       })
     })
   }
+  destroy(callback) {
+    getCollection.then(function(collection) {
+      collection.deleteOne({'_id': ObjectId(this.id)}, function(err, result) {
+        assert.equal(err, null);
+        assert.equal(1, result.result.n);
+        console.log("Removed the document");
+        callback(result);
+      })
+    })
+  }
 }
+
 
 Task.findOne = function(id, callback) {
   getCollection.then((collection) => {
       collection.find({'_id': id}).toArray(function(err, docs) {
-      debugger
-    assert.equal(err, null);
-    console.log("Found the following records");
-    console.log(docs);
-    callback(docs);
-    });
+        debugger
+        assert.equal(err, null);
+        console.log("Found the following records");
+        console.log(docs);
+        callback(new Task(docs));
+      });
   })
+  debugger
 };
 
 Task.findAll = function(callback) {

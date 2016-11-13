@@ -24,12 +24,12 @@ class Task {
       })
     })
   }
-};
+}
 
-Task.find(id, callback) {
+Task.findOne = function(id, callback) {
   getCollection.then((collection) => {
-  collection.find('_id': id).toArray(function(err, docs) {
-    debugger
+      collection.find({'_id': id}).toArray(function(err, docs) {
+      debugger
     assert.equal(err, null);
     console.log("Found the following records");
     console.log(docs);
@@ -38,10 +38,15 @@ Task.find(id, callback) {
   })
 };
 
-
-
-
-
-
+Task.findAll = function(callback) {
+  getCollection.then((collection) => {
+    collection.find({}).toArray(function(err, docs) {
+      assert.equal(err, null);
+      console.log("Found the following records");
+      console.log(docs);
+      callback(docs);
+    });
+  })
+};
 
 module.exports = Task;

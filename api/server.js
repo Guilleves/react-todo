@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // var t = new Task(1, "prueba", "active");
-// var t1 = new Task(1, "sacar la basura", "active");
-// var t2 = new Task(1, "probar metodos", "completed");
-// var t3 = new Task(1, "estudiar isw", "active");
-//
+// var t1 = new Task(1, 1, "holis", "active");
+// var t2 = new Task(2, 1, "task de prueba", "completed");
+// var t3 = new Task(3, 1, "hu3hu3hu3hu3h", "active");
+// //
 // t1.save(function(){
 //     console.log("guardado");
 // });
@@ -25,15 +25,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     console.log("guardado");
 // });
 //
-var t = Task.findOne(ObjectId("58278a640084430bec27a1df"), () => {
+var t = Task.findOne(ObjectId("5828e6adfed5fe1080f99187"), (task) => {
     console.log("found");
-    t.destroy((docs) => {
-      console.log("deleted");
-    })
-});
+    debugger
 
-// var t = Task.findOne(ObjectId("58278a640084430bec27a1df"), function(docs) {
-//     console.log("holi" +docs);
+    return task;
+});
+debugger
+
+// Task.findOne(ObjectId("5828e6adfed5fe1080f99187"), (task) => {
+//     console.log("found");
+//     task.destroy((docs) => {
+//         console.log("deleted");
+//     })
 // });
 
 let server = http.Server(app);

@@ -28,8 +28,10 @@ class Task {
     })
   }
   destroy(callback) {
+    let task_id = this.task_id;
+    let user_id = this.user_id;
     getCollection.then(function(collection) {
-      collection.deleteOne({'_id': ObjectId(this.id)}, function(err, result) {
+      collection.deleteOne({'task_id': task_id, 'user_id': user_id }, function(err, result) {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
         console.log("Removed the document");
@@ -43,14 +45,13 @@ class Task {
 Task.findOne = function(id, callback) {
   getCollection.then((collection) => {
       collection.find({'_id': id}).toArray(function(err, docs) {
-        debugger
         assert.equal(err, null);
         console.log("Found the following records");
         console.log(docs);
-        callback(new Task(docs));
+        debugger
+        callback(new Task(docs[0].task_id, docs[0].user_id, docs[0].description, docs[0].state));
       });
   })
-  debugger
 };
 
 Task.findAll = function(callback) {
